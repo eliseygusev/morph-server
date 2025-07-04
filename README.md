@@ -9,17 +9,21 @@ A high-performance Starlette web server that integrates Claude Code SDK with Git
 - **GitHub Integration**: Automated branch creation and file management
 - **Claude Code SDK**: AI-powered code generation and modification
 - **Git Patch Generation**: Tracks all file changes and generates patches
-- **Callback Support**: Optional async callbacks for long-running operations
+- **Callback Support**: Optional async callbacks for result delivery
 - **Morph Cloud Ready**: Built-in support for Morph Cloud deployment
 
-## Installation
+## Quick Start
 
 ```bash
-# Using uv (recommended)
-uv sync
+# Run directly with uv (installs dependencies automatically)
+uv run morph_server.py
 
-# Or using pip
-pip install -r requirements.txt
+# Or run directly from GitHub (replace with your repo URL)
+curl -s https://raw.githubusercontent.com/eliseygusev/morph-server/main/morph_server.py | uv run -
+
+# Or download first
+curl -O https://raw.githubusercontent.com/eliseygusev/morph-server/main/morph_server.py
+uv run morph_server.py
 ```
 
 ## Usage
@@ -27,22 +31,16 @@ pip install -r requirements.txt
 ### Local Development
 
 ```bash
-# Set JWT secret (optional, defaults to "your-secret-key")
-export JWT_SECRET_KEY="your-secret-jwt-key"
+# Run the server (uv handles all dependencies)
+uv run morph_server.py
 
-# Run the server
-python main.py
-
-# Or with custom port
-PORT=8080 python main.py
+# With environment variables
+PORT=8080 uv run morph_server.py
 ```
 
 ### Morph Cloud Deployment
 
-```bash
-# Run with Morph SDK integration
-python morph_runner.py
-```
+See `MORPH_DEPLOYMENT.md` for detailed deployment instructions.
 
 ## API Endpoints
 
@@ -63,7 +61,7 @@ Content-Type: application/json
   "repo_name": "owner/repo",
   "branch_name": "feature/new-feature",
   "prompt": "Add a new function to calculate fibonacci numbers",
-  "callback_url": "https://your-server.com/callback" // optional
+  "callback_url": "https://your-server.com/callback"
 }
 ```
 
