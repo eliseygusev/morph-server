@@ -234,7 +234,7 @@ async def process_claude_request(request: Request) -> JSONResponse:
             
             os.chdir(temp_dir)
             
-            messages = []
+            messages: list[Message] = []
             async for message in query(
                 prompt=prompt,
                 options=ClaudeCodeOptions(
@@ -277,7 +277,7 @@ async def process_claude_request(request: Request) -> JSONResponse:
             "branch_name": branch_name,
             "patch": patch,
             "changed_files": changed_files,
-            "claude_messages": [{"type": msg.type, "content": msg.content} for msg in messages]
+            "claude_messages": [str(msg) for msg in messages]
         }
         
         # Send callback to the provided URL
